@@ -5,6 +5,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 
+
 class EmotionalFaceView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     // Paint object for coloring and styling
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -25,6 +26,9 @@ class EmotionalFaceView(context: Context, attrs: AttributeSet) : View(context, a
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        drawFaceBackground(canvas)
+        drawEyes(canvas)
+        drawMouth(canvas)
     }
 
     private fun drawFaceBackground(canvas: Canvas) {
@@ -68,5 +72,13 @@ class EmotionalFaceView(context: Context, attrs: AttributeSet) : View(context, a
         paint.style = Paint.Style.FILL
 
         canvas.drawPath(mouthPath, paint)
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        size = measuredWidth.coerceAtMost(measuredHeight)
+
+        setMeasuredDimension(size, size)
     }
 }
